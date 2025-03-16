@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
     <script src="https://xxsibxx.github.io/ruffleembedsetup112/ruffle/ruffle.js"></script>
+    <script type="text/javascript" src="https://api.gamemonetize.com/sdk.js"></script> 
     <style>
         html, body {
             margin: 0;
@@ -34,14 +35,6 @@
             width: 100%;
             height: 80%;
         }
-        .ad-banner {
-            width: 160px;
-            height: 600px;
-            margin-top: 110px;
-            position: relative;
-            z-index: 10; /* Ensures ads are on top */
-            pointer-events: auto; /* Allows clicking */
-        }
         .game-container {
             width: 100%;
             max-width: 1000px;
@@ -50,9 +43,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         .swf-container {
-            position: relative; /* Prevents absolute overlap */
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -64,13 +58,18 @@
             width: 100%;
             height: 100%;
         }
-        .bottom-ad {
-            width: 970px;
-            height: 90px;
-            margin-top: 10px;
-            position: relative;
-            z-index: 10;
-            pointer-events: auto;
+        .ad-btn {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffcc00;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -83,16 +82,14 @@
     </nav>
 
     <div class="container">
-        
         <div class="game-container">
             <div class="swf-container">
                 <embed id="gameEmbed" src="https://sz-games.github.io/FlashGames/papasbakeria.swf" type="application/x-shockwave-flash"></embed>
             </div>
+            <button class="ad-btn" onclick="showAd()">Watch Ad for Reward</button>
         </div>
-        
     </div>
 
-    
     <script>
         function resizeGame() {
             let embed = document.getElementById('gameEmbed');
@@ -117,9 +114,22 @@
 
         window.addEventListener('resize', resizeGame);
         window.onload = resizeGame;
-    </script>
 
-    <!-- Alternative: Uncomment if the iframe still doesn't work -->
+        function showAd() {
+            if (typeof sdk !== 'undefined' && sdk.showVideoAd) {
+                sdk.showVideoAd((completed) => {
+                    if (completed) {
+                        alert("Ad finished! You earned a reward.");
+                        // Add reward logic here
+                    } else {
+                        alert("Ad was skipped or failed.");
+                    }
+                });
+            } else {
+                alert("GameMonetize SDK not loaded.");
+            }
+        }
+    </script>
 
 </body>
 </html>
