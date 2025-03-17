@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1v1.lol</title>
+    <title>Minecraft</title>
     <style>
         html, body {
             margin: 0;
@@ -23,22 +23,16 @@
             background-attachment: fixed;
         }
 
-        /* Navigation bar with logo */
-        nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            position: absolute;
-            top: 20px; /* Adjust the distance from the top */
-            left: 50%;
-            transform: translateX(-50%); /* Centers the logo horizontally */
+        /* Logo styling */
+        .logo {
+            position: fixed;
+            bottom: 20px; /* Adjust distance from bottom */
+            left: 20px; /* Adjust distance from left */
             z-index: 10;
         }
 
-        /* Logo styling (smaller version) */
-        nav img {
-            width: 50px; /* Smaller size for the logo */
+        .logo img {
+            width: 50px; /* Adjust logo size */
             height: auto;
         }
 
@@ -60,12 +54,10 @@
 </head>
 <body>
 
-    <!-- Navigation bar with the game logo -->
-    <nav>
-        <a href="https://nebulaplay.site/" target="_blank">
-            <img src="https://i.ibb.co/wNQhpbZL/9sadas89d.png" alt="NebulaPlay">
-        </a>
-    </nav>
+    <!-- Logo in bottom left corner -->
+    <a href="https://nebulaplay.site/" target="_blank" class="logo">
+        <img src="https://i.ibb.co/wNQhpbZL/9sadas89d.png" alt="NebulaPlay">
+    </a>
 
     <!-- Fullscreen iframe for the game -->
     <div class="game-container">
