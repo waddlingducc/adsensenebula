@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16934078239"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-16934078239');
+</script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366308143645027" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papa's Bakeria</title>
+    <title>Papa's Sushiria</title>
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
     <script src="https://xxsibxx.github.io/ruffleembedsetup112/ruffle/ruffle.js"></script>
@@ -33,44 +43,37 @@
             align-items: center;
             width: 100%;
             height: 80%;
+            gap: 20px;
+            margin-top: 40px; /* Moves everything down slightly */
         }
         .ad-banner {
             width: 160px;
             height: 600px;
-            margin-top: 110px;
-            position: relative;
-            z-index: 10; /* Ensures ads are on top */
-            pointer-events: auto; /* Allows clicking */
         }
         .game-container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
             height: 85%;
-            margin-top: 110px;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-top: 20px; /* Moves the game down slightly */
         }
         .swf-container {
-            position: relative; /* Prevents absolute overlap */
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
             height: 100%;
-            z-index: 1;
         }
         embed {
             width: 100%;
             height: 100%;
         }
         .bottom-ad {
-            width: 970px;
+            width: 728px;
             height: 90px;
-            margin-top: 10px;
-            position: relative;
-            z-index: 10;
-            pointer-events: auto;
+            margin-top: 20px; /* Adds some space between the game and bottom ad */
         }
     </style>
 </head>
@@ -83,23 +86,59 @@
     </nav>
 
     <div class="container">
-        
+        <!-- Left Vertical Ad -->
+        <div class="ad-banner">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2366308143645027"
+                 data-ad-slot="9891545305"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Game -->
         <div class="game-container">
             <div class="swf-container">
                 <embed id="gameEmbed" src="https://sz-games.github.io/FlashGames/papasbakeria.swf" type="application/x-shockwave-flash"></embed>
             </div>
         </div>
-        
+
+        <!-- Right Vertical Ad -->
+        <div class="ad-banner">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2366308143645027"
+                 data-ad-slot="9891545305"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
 
-    
+    <!-- Bottom Horizontal Ad -->
+    <div class="bottom-ad">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366308143645027" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-2366308143645027"
+             data-ad-slot="5691649682"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <script>
         function resizeGame() {
             let embed = document.getElementById('gameEmbed');
             let container = document.querySelector('.game-container');
             let containerWidth = container.offsetWidth;
             let containerHeight = container.offsetHeight;
-            let gameAspectRatio = 1000 / 600; // Original game aspect ratio
+            let gameAspectRatio = 900 / 540; // Keeps the new larger size
 
             let newWidth, newHeight;
 
@@ -111,15 +150,12 @@
                 newHeight = newWidth / gameAspectRatio;
             }
 
-            embed.style.width = ${newWidth}px;
-            embed.style.height = ${newHeight}px;
+            embed.style.width = `${newWidth}px`;
+            embed.style.height = `${newHeight}px`;
         }
 
         window.addEventListener('resize', resizeGame);
         window.onload = resizeGame;
     </script>
-
-    <!-- Alternative: Uncomment if the iframe still doesn't work -->
-
 </body>
 </html>
