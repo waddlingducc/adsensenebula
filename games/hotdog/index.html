@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16934078239"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-16934078239');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16934078239"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-16934078239');
+    </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366308143645027" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
@@ -49,8 +48,8 @@
             height: 600px;
             margin-top: 110px;
             position: relative;
-            z-index: 10; /* Ensures ads are on top */
-            pointer-events: auto; /* Allows clicking */
+            z-index: 10;
+            pointer-events: auto;
         }
         .game-container {
             width: 100%;
@@ -62,7 +61,7 @@
             align-items: center;
         }
         .swf-container {
-            position: relative; /* Prevents absolute overlap */
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -93,23 +92,36 @@
     </nav>
 
     <div class="container">
-        
         <div class="game-container">
-            <div class="swf-container">
-                <embed id="gameEmbed" src="https://sjrnoodles.github.io/Flash-Game-Archive/papashotdoggeria.swf" type="application/x-shockwave-flash"></embed>
+            <div class="swf-container" id="gameContainer">
+                <!-- Game will load here after 3 seconds -->
             </div>
         </div>
-        
     </div>
 
-    
     <script>
+        function loadGame() {
+            let gameContainer = document.getElementById('gameContainer');
+
+            let embed = document.createElement('embed');
+            embed.id = 'gameEmbed';
+            embed.src = "https://sjrnoodles.github.io/Flash-Game-Archive/papashotdoggeria.swf";
+            embed.type = "application/x-shockwave-flash";
+            embed.style.width = "100%";
+            embed.style.height = "100%";
+
+            gameContainer.appendChild(embed);
+            resizeGame();
+        }
+
         function resizeGame() {
             let embed = document.getElementById('gameEmbed');
+            if (!embed) return;
+
             let container = document.querySelector('.game-container');
             let containerWidth = container.offsetWidth;
             let containerHeight = container.offsetHeight;
-            let gameAspectRatio = 1000 / 600; // Original game aspect ratio
+            let gameAspectRatio = 1000 / 600;
 
             let newWidth, newHeight;
 
@@ -126,10 +138,10 @@
         }
 
         window.addEventListener('resize', resizeGame);
-        window.onload = resizeGame;
+        window.onload = function() {
+            setTimeout(loadGame, 3000); // Delay game load by 3 seconds
+        };
     </script>
-
-    <!-- Alternative: Uncomment if the iframe still doesn't work -->
 
 </body>
 </html>
