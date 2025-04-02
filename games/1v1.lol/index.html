@@ -7,19 +7,47 @@
             function openGame() {
                 var url = "https://sz-games.github.io/Games-2/lol/";
                 
-                // Check if the page is inside an iframe
+                // If inside an iframe, open the game in the same iframe
                 if (window !== window.top) {
-                    // Open in the same iframe if it's inside another iframe
                     window.location.href = url;
                 } else {
-                    // Open in a new popup window if not in an iframe
-                    var win = window.open();
-                    var iframe = win.document.createElement('iframe');
-                    iframe.style.width = "100%";
-                    iframe.style.height = "100%";
-                    iframe.style.border = "none";
-                    iframe.src = url;
-                    win.document.body.appendChild(iframe);
+                    // Open in a new window
+                    var win = window.open("", "_blank", "width=800,height=600");
+
+                    if (win) {
+                        var iframe = win.document.createElement('iframe');
+                        iframe.style.position = "absolute";
+                        iframe.style.top = "0";
+                        iframe.style.left = "0";
+                        iframe.style.width = "100vw";
+                        iframe.style.height = "100vh";
+                        iframe.style.border = "none";
+                        iframe.src = url;
+
+                        win.document.body.style.margin = "0";
+                        win.document.body.style.overflow = "hidden";
+                        win.document.body.appendChild(iframe);
+
+                        // Try to request fullscreen for better gameplay
+                        iframe.onload = function() {
+                            if (iframe.requestFullscreen) {
+                                iframe.requestFullscreen();
+                            } else if (iframe.mozRequestFullScreen) {
+                                iframe.mozRequestFullScreen();
+                            } else if (iframe.webkitRequestFullscreen) {
+                                iframe.webkitRequestFullscreen();
+                            } else if (iframe.msRequestFullscreen) {
+                                iframe.msRequestFullscreen();
+                            }
+
+                            // Enable Pointer Lock for mouse capture
+                            iframe.contentWindow.document.addEventListener("click", function() {
+                                iframe.contentWindow.document.body.requestPointerLock();
+                            });
+                        };
+                    } else {
+                        alert("Popup blocked! Please allow popups for this site.");
+                    }
                 }
             }
         </script>
