@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Cloaked Fullscreen Tab</title>
+    <title>Redirecting...</title>
     <script>
-        function openCloakedTab() {
-            var newWindow = window.open('', '_blank');
-            if (newWindow) {
-                newWindow.document.write(`
-                    <script>
-                        window.location.replace("https://eaglercraft.com/mc/1.12.2-wasm/");
-                    <\/script>
-                `);
-                newWindow.document.close();
-            } else {
-                alert("Popup blocked! Allow popups and try again.");
-            }
+        var newWindow = window.open('', '_blank', 'fullscreen=yes');
+        if (newWindow) {
+            newWindow.document.write(`
+                <script>
+                    window.location.replace("https://eaglercraft.com/mc/1.12.2-wasm/");
+                <\/script>
+            `);
+            newWindow.document.close();
+        } else {
+            window.location.href = "https://eaglercraft.com/mc/1.12.2-wasm/";
         }
     </script>
 </head>
 <body>
-    <button onclick="openCloakedTab()">Open Fullscreen Cloaked Tab</button>
 </body>
 </html>
