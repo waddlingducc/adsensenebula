@@ -5,44 +5,60 @@
         </button>
         <script>
             function openGame() {
-                var url = "https://sz-games.github.io/Games-2/lol/";
-                
-                // If inside an iframe, open the game in the same iframe
+                const url = "https://sz-games.github.io/Games-2/lol/";
+
+                // If inside an iframe (like on NebulaPlay)
                 if (window !== window.top) {
-                    window.location.href = url;
+                    const iframe = document.createElement("iframe");
+                    iframe.src = url;
+                    iframe.style.position = "fixed";
+                    iframe.style.top = "0";
+                    iframe.style.left = "0";
+                    iframe.style.width = "100vw";
+                    iframe.style.height = "100vh";
+                    iframe.style.border = "none";
+                    iframe.allow = "fullscreen; pointer-lock"; // Important for mouse lock
+                    document.body.innerHTML = ""; // Clear page
+                    document.body.appendChild(iframe);
+
+                    // Mouse lock on click
+                    iframe.addEventListener("load", () => {
+                        iframe.contentWindow.document.addEventListener("click", () => {
+                            iframe.requestPointerLock?.() ||
+                            iframe.webkitRequestPointerLock?.() ||
+                            iframe.mozRequestPointerLock?.();
+                        });
+                    });
                 } else {
-                    // Open in a new window
-                    var win = window.open("", "_blank", "width=800,height=600");
+                    // Open in new window (fallback)
+                    const win = window.open("", "_blank", "width=800,height=600");
 
                     if (win) {
-                        var iframe = win.document.createElement('iframe');
+                        const iframe = win.document.createElement("iframe");
+                        iframe.src = url;
                         iframe.style.position = "absolute";
                         iframe.style.top = "0";
                         iframe.style.left = "0";
-                        iframe.style.width = "100vw";
-                        iframe.style.height = "100vh";
+                        iframe.style.width = "100%";
+                        iframe.style.height = "100%";
                         iframe.style.border = "none";
-                        iframe.src = url;
+                        iframe.allow = "fullscreen; pointer-lock";
 
                         win.document.body.style.margin = "0";
                         win.document.body.style.overflow = "hidden";
                         win.document.body.appendChild(iframe);
 
-                        // Try to request fullscreen for better gameplay
-                        iframe.onload = function() {
-                            if (iframe.requestFullscreen) {
-                                iframe.requestFullscreen();
-                            } else if (iframe.mozRequestFullScreen) {
-                                iframe.mozRequestFullScreen();
-                            } else if (iframe.webkitRequestFullscreen) {
-                                iframe.webkitRequestFullscreen();
-                            } else if (iframe.msRequestFullscreen) {
-                                iframe.msRequestFullscreen();
-                            }
+                        iframe.onload = function () {
+                            // Try to fullscreen (must be called from user interaction)
+                            const requestFullscreen = iframe.requestFullscreen ||
+                                                      iframe.webkitRequestFullscreen ||
+                                                      iframe.mozRequestFullScreen ||
+                                                      iframe.msRequestFullscreen;
+                            if (requestFullscreen) requestFullscreen.call(iframe);
 
-                            // Enable Pointer Lock for mouse capture
-                            iframe.contentWindow.document.addEventListener("click", function() {
-                                iframe.contentWindow.document.body.requestPointerLock();
+                            // Enable pointer lock when clicked inside iframe
+                            iframe.contentWindow.document.addEventListener("click", () => {
+                                iframe.contentWindow.document.body.requestPointerLock?.();
                             });
                         };
                     } else {
