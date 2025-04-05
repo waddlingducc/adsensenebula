@@ -1,62 +1,55 @@
 <div style="overflow: hidden;">
-  <center>
-    <button onclick="openGame()" style="background-color: #7e57c2; color: #fff; border: 1px solid #673ab7; font-size: 78px; width: 300%; cursor: pointer; border-radius: 10px;">
-      Open Game
-    </button>
+    <center>
+        <button onclick="openGame()" style="background-color: #7e57c2; color: #fff; border: 1px solid #673ab7; font-size: 26px; width: 100%; cursor: pointer; border-radius: 10px;"> 
+            Open Game 
+        </button>
+        <script>
+            function openGame() {
+                var url = "https://eaglercraft.com/mc/1.12.2-wasm/";
+                
+                // If inside an iframe, open the game in the same iframe
+                if (window !== window.top) {
+                    window.location.href = url;
+                } else {
+                    // Open in a new window
+                    var win = window.open("", "_blank", "width=800,height=600");
 
-    <script>
-      function openGame() {
-        const url = "https://sz-games.github.io/Games-2/lol/";
-        const win = window.open("", "_blank", "width=1000,height=700");
+                    if (win) {
+                        var iframe = win.document.createElement('iframe');
+                        iframe.style.position = "absolute";
+                        iframe.style.top = "0";
+                        iframe.style.left = "0";
+                        iframe.style.width = "100vw";
+                        iframe.style.height = "100vh";
+                        iframe.style.border = "none";
+                        iframe.src = url;
 
-        if (win) {
-          // Clear existing content
-          win.document.write("<!DOCTYPE html><html><head><title>Game</title></head><body></body></html>");
-          win.document.close();
+                        win.document.body.style.margin = "0";
+                        win.document.body.style.overflow = "hidden";
+                        win.document.body.appendChild(iframe);
 
-          const iframe = win.document.createElement('iframe');
-          iframe.style.position = "absolute";
-          iframe.style.top = "0";
-          iframe.style.left = "0";
-          iframe.style.width = "100vw";
-          iframe.style.height = "100vh";
-          iframe.style.border = "none";
-          iframe.src = url;
+                        // Try to request fullscreen for better gameplay
+                        iframe.onload = function() {
+                            if (iframe.requestFullscreen) {
+                                iframe.requestFullscreen();
+                            } else if (iframe.mozRequestFullScreen) {
+                                iframe.mozRequestFullScreen();
+                            } else if (iframe.webkitRequestFullscreen) {
+                                iframe.webkitRequestFullscreen();
+                            } else if (iframe.msRequestFullscreen) {
+                                iframe.msRequestFullscreen();
+                            }
 
-          win.document.body.style.margin = "0";
-          win.document.body.style.overflow = "hidden";
-          win.document.body.appendChild(iframe);
-
-          // Attempt fullscreen + pointer lock
-          iframe.onload = function () {
-            const doc = iframe.contentWindow.document;
-
-            // Fullscreen (some browsers may block this without user interaction)
-            const requestFullscreen = iframe.requestFullscreen ||
-                                      iframe.webkitRequestFullscreen ||
-                                      iframe.mozRequestFullScreen ||
-                                      iframe.msRequestFullscreen;
-
-            if (requestFullscreen) {
-              requestFullscreen.call(iframe);
+                            // Enable Pointer Lock for mouse capture
+                            iframe.contentWindow.document.addEventListener("click", function() {
+                                iframe.contentWindow.document.body.requestPointerLock();
+                            });
+                        };
+                    } else {
+                        alert("Popup blocked! Please allow popups for this site.");
+                    }
+                }
             }
-
-            // Pointer lock on click inside the iframe content
-            doc.addEventListener("click", () => {
-              const body = doc.body;
-              const requestPointerLock = body.requestPointerLock ||
-                                         body.mozRequestPointerLock ||
-                                         body.webkitRequestPointerLock;
-
-              if (requestPointerLock) {
-                requestPointerLock.call(body);
-              }
-            });
-          };
-        } else {
-          alert("Popup blocked! Please allow popups for this site.");
-        }
-      }
-    </script>
-  </center>
+        </script>
+    </center>
 </div>
