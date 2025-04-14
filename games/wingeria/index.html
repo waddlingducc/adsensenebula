@@ -75,6 +75,70 @@
     </style>
 </head>
 <body>
+
+<!-- Google IMA SDK -->
+<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+<style>
+#adContainer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: black;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#adContainer video {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+}
+</style>
+
+<div id="adContainer"></div>
+
+<script>
+  var adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById('adContainer'));
+  var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+  var adsRequest = new google.ima.AdsRequest();
+  adsRequest.adTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?iu=/23289777950/video&description_url=https%3A%2F%2Fnebulaplay.site&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=";
+  adsRequest.linearAdSlotWidth = window.innerWidth;
+  adsRequest.linearAdSlotHeight = window.innerHeight;
+  adsRequest.nonLinearAdSlotWidth = window.innerWidth;
+  adsRequest.nonLinearAdSlotHeight = window.innerHeight;
+
+  adDisplayContainer.initialize();
+  var adsManager;
+
+  adsLoader.addEventListener(
+    google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+    function (adsManagerLoadedEvent) {
+      adsManager = adsManagerLoadedEvent.getAdsManager();
+      adsManager.init(window.innerWidth, window.innerHeight, google.ima.ViewMode.NORMAL);
+      adsManager.start();
+    },
+    false
+  );
+
+  adsLoader.addEventListener(
+    google.ima.AdErrorEvent.Type.AD_ERROR,
+    function (adErrorEvent) {
+      console.log(adErrorEvent.getError());
+      document.getElementById('adContainer').style.display = 'none';
+    },
+    false
+  );
+
+  adsLoader.requestAds(adsRequest);
+
+  // Auto-close ad overlay after 30 seconds
+  setTimeout(() => {
+    document.getElementById('adContainer').style.display = 'none';
+  }, 30000);
+</script>
+
 <nav>
 <a href="/">
 <img alt="logo" src="https://i.ibb.co/RTKMMcY7/irytyui.png"/>
