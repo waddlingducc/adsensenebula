@@ -43,6 +43,62 @@
   align-items: center;
   justify-content: center;
 }
+</style>
+
+<div id="adContainer"></div>
+
+<script>
+  function playAd() {
+    const adContainer = document.getElementById('adContainer');
+    const adDisplayContainer = new google.ima.AdDisplayContainer(adContainer);
+    adDisplayContainer.initialize();
+
+    const adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+    const adsRequest = new google.ima.AdsRequest();
+    adsRequest.adTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&description_url=https%3A%2F%2Fexample.com&env=vp&impl=s&correlator=";
+    adsRequest.linearAdSlotWidth = window.innerWidth;
+    adsRequest.linearAdSlotHeight = window.innerHeight;
+
+    adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, (e) => {
+      const adsManager = e.getAdsManager();
+      adsManager.init(window.innerWidth, window.innerHeight, google.ima.ViewMode.NORMAL);
+      adsManager.start();
+    });
+
+    adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, (err) => {
+      console.error('Ad error:', err.getError());
+      adContainer.style.display = 'none';
+    });
+
+    adsLoader.requestAds(adsRequest);
+
+    // Auto-remove overlay after 30 seconds
+    setTimeout(() => {
+      adContainer.style.display = 'none';
+    }, 30000);
+  }
+
+  // Try to autoplay on load
+  window.addEventListener('load', () => {
+    playAd();
+  });
+</script>
+
+
+<!-- Google IMA SDK -->
+<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+<style>
+#adContainer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: black;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #adContainer video {
   width: 100%;
   max-width: 800px;
