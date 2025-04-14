@@ -18,7 +18,6 @@
 <title>Papa's Donuteria Unblocked Games NebulaPlay</title>
 <link href="/main.css" rel="stylesheet"/>
 <link href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css" rel="stylesheet"/>
-<script src="https://xxsibxx.github.io/ruffleembedsetup112/ruffle/ruffle.js"></script>
 <style>
         html, body {
             margin: 0;
@@ -42,38 +41,36 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            height: 80%;
-            gap: 20px;
-            margin-top: 40px; /* Moves everything down slightly */
+            height: 680px; /* Adjusted height */
+            margin-top: 110px;
         }
         .ad-banner {
             width: 160px;
             height: 600px;
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
         }
         .game-container {
-            width: 100%;
-            max-width: 900px;
-            height: 85%;
+            width: 900px;
+            height: 540px; /* Slightly taller */
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 20px; /* Moves the game down slightly */
+            position: relative;
         }
-        .swf-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-        embed {
-            width: 100%;
-            height: 100%;
+        .game-frame {
+            width: 900px;
+            height: 540px; /* Updated height */
+            border: none;
         }
         .bottom-ad {
-            width: 728px;
+            width: 970px;
             height: 90px;
-            margin-top: 20px; /* Adds some space between the game and bottom ad */
+            margin-top: 10px;
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
         }
     </style>
 </head>
@@ -85,20 +82,19 @@
 <h3>NebulaPlay</h3>
 </nav>
 <div class="container">
-<!-- Left Vertical Ad -->
+<!-- Left Ad -->
 <div class="ad-banner">
 <ins class="adsbygoogle" data-ad-client="ca-pub-2366308143645027" data-ad-format="auto" data-ad-slot="9891545305" data-full-width-responsive="true" style="display:block"></ins>
 <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
 </div>
-<!-- Game -->
 <div class="game-container">
-<div class="swf-container">
-<embed id="gameEmbed" src="https://hahahahahsussy.github.io/games/Papa's%20Donuteria.swf" type="application/x-shockwave-flash"/>
+<iframe class="game-frame" sandbox="allow-scripts allow-same-origin" src="https://papasgamesx.github.io/flipline/papas-donuteria/">
+<p>Your browser does not support iframes.</p>
+</iframe>
 </div>
-</div>
-<!-- Right Vertical Ad -->
+<!-- Right Ad -->
 <div class="ad-banner">
 <ins class="adsbygoogle" data-ad-client="ca-pub-2366308143645027" data-ad-format="auto" data-ad-slot="9891545305" data-full-width-responsive="true" style="display:block"></ins>
 <script>
@@ -106,38 +102,12 @@
             </script>
 </div>
 </div>
-<!-- Bottom Horizontal Ad -->
+<!-- Bottom Ad -->
 <div class="bottom-ad">
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366308143645027"></script>
-<ins class="adsbygoogle" data-ad-client="ca-pub-2366308143645027" data-ad-slot="5691649682" style="display:inline-block;width:728px;height:90px"></ins>
+<ins class="adsbygoogle" data-ad-client="ca-pub-2366308143645027" data-ad-format="horizontal" data-ad-slot="9891545305" data-full-width-responsive="true" style="display:block"></ins>
 <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
 </div>
-<script>
-        function resizeGame() {
-            let embed = document.getElementById('gameEmbed');
-            let container = document.querySelector('.game-container');
-            let containerWidth = container.offsetWidth;
-            let containerHeight = container.offsetHeight;
-            let gameAspectRatio = 900 / 540; // Keeps the new larger size
-
-            let newWidth, newHeight;
-
-            if (containerWidth / containerHeight > gameAspectRatio) {
-                newHeight = containerHeight;
-                newWidth = newHeight * gameAspectRatio;
-            } else {
-                newWidth = containerWidth;
-                newHeight = newWidth / gameAspectRatio;
-            }
-
-            embed.style.width = `${newWidth}px`;
-            embed.style.height = `${newHeight}px`;
-        }
-
-        window.addEventListener('resize', resizeGame);
-        window.onload = resizeGame;
-    </script>
 </body>
 </html>
