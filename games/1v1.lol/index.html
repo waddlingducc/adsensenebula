@@ -57,7 +57,6 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            cursor: pointer;
         }
         .game-frame {
             width: 900px;
@@ -75,10 +74,10 @@
     </style>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const iframeContainer = document.querySelector(".game-container");
   const iframe = document.querySelector(".game-frame");
+  const iframeContainer = document.querySelector(".game-container");
 
-  iframeContainer.addEventListener("click", () => {
+  iframe.addEventListener("click", () => {
     if (iframeContainer.requestFullscreen) {
       iframeContainer.requestFullscreen().then(() => {
         iframe.contentWindow.focus();
@@ -89,6 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (iframeContainer.requestPointerLock) {
           iframeContainer.requestPointerLock();
         }
+      }).catch(err => {
+        console.error("Fullscreen request failed:", err);
       });
     }
   });
